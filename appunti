@@ -1,0 +1,7 @@
+git config —global user.email matteo.nazzario@intesasanpaolo.com
+
+git config —global user.name mnazzario
+
+
+PER scaricare da Git
+git pull (farlo su bdintesa)
