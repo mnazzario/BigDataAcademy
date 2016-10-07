@@ -5,3 +5,20 @@ git config —global user.name mnazzario
 
 PER scaricare da Git
 git pull (farlo su bdintesa)
+
+PYthon
+dir(oggetto) --> Stampa i metodi dell'oggetto
+
+help(hello.upper) --> fa vedere l'help del metodo
+
+print " ".join([hello, world]) --> Modo migliore per stampare le liste
+
+print "%s" % hello --> per stampare i valori formattati
+
+print "ciao %s %s" % (hello, numero) -->  per stampare i valori formattati
+
+print isinstance(hello, int) --> per capire se è una istanza della classe che gli passo
+
+jupyter notebook
+
+
