@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg width="10000">
+      </svg>
+      <script>
+     
+          d3.csv('athletes_sochi.csv', function(data){
+              console.log(data) 
+              //console.log(data[0].age)
+              
+             var Rects = d3.select('svg') //il codice seguente dice che per ogni oggetto nel file crea un rettangolo
+                .selectAll('rect') //prepara l'oggetto di tipo rect perchè voglio unirli a questo data set
+                .data(data)
+                .enter() 
+                .append('rect')
+                     .attr('height', 0)
+                .attr('width', 5)
+                .attr('x', function(d,i){
+                  return i*6
+              })
+                .attr('y', 100)
+              .attr('opacity',0)
+                
+             Rects.transition()
+                .duration(1500)
+              .delay(function (d,i){
+                  return 5*i                  
+              })
+              .attr('height', function(d,i){
+                          return d.age                      
+                          })
+              .attr('opacity',1)
+              .attr('y', function(d,i){
+                      return 100-d.age                     
+                      })
+             
+             Rects.on('click', function(d,i){
+            //alert("hey")
+                if(d.clicked)
+                    {
+                         d3.select(this)
+                        .attr("fill", "black")
+                        d.clicked=false
+                    }
+                 else{
+                      d3.select(this)
+                      .attr("fill", "red")
+                      d.clicked=true
+                }
+                //.attr("height", 70)
+                //.attr("y", 40)    
+        })
+              
+          })
+      </script>
+  </body>
+</html>

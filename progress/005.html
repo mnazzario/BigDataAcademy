@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg height="1000">
+      </svg>
+      <script>
+     
+          d3.csv('athletes_sochi.csv', function(data){
+              console.log(data) 
+              //console.log(data[0].age)
+              
+              d3.select('svg') //il codice seguente dice che per ogni oggetto nel file crea un rettangolo
+                .selectAll('rect') //prepara l'oggetto di tipo rect perchè voglio unirli a questo data set
+                .data(data)
+                .enter() 
+                .append('rect')
+                .attr('width', function(d,i){
+                      return d.age                      
+                      })
+                .attr('height', 5)
+                .attr('y', function(d,i){
+                      return i*6                     
+                      })
+              
+          })
+      </script>
+  </body>
+</html>
