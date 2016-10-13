@@ -7,25 +7,88 @@
     <body>
     
     <script>
-        d3.select("body")
+        myRect3 = d3.select("body") 
         .append("svg")
         .append("rect")
         .attr("width", 40)
-        .attr("height", 80)
-        .attr("y", 30)
+        .attr("height", 0)
+        .attr("y", 110)
+        .attr("x", 0)
+        
+        myRect3.transition()
+        .duration(2000)
+        .attr("height",80)
+        .attr("width",40)
+        .attr("y",30)
+       // .attr("x", 0)
+        
+        myRect3.on('click', function(){
+            //alert("hey")
+            console.log("hey")
+            d3.select(this)
+                .transition()
+                .duration(2000) 
+                .attr("height",20)
+                .attr("y", 90)
+        
+        })
+        
+       var myRect = //Serve per gestire codice complessi e dividere le catene di istruzioni
         d3.select("svg")
         .append("rect")
         .attr("width", 40)
-        .attr("height", 50)
-        .attr("y", 60)
+        .attr("height", 0) //50
+        .attr("y", 110)
         .attr("x", 45)
-        .attr("fill", "orange")
-        d3.select("svg")
+        .attr("fill", "grey")
+       
+         myRect.transition()
+            .duration(2000)
+            .attr("height",50)
+            .attr("y",60)
+         
+         myRect.on('click', function(){
+            //alert("hey")
+            console.log("hey")
+            d3.select(this)
+                .transition()
+                .duration(2000)
+                .ease('elastic')
+                .attr("fill", "red")
+                .attr("height", 70)
+                .attr("y", 40)
+            
+        })
+        
+       
+        
+        myRect2 = d3.select("svg")
         .append("rect")
         .attr("width", 40)
+        .attr("height", 0)
+        .attr("y", 110)
+        .attr("x", 90)
+        
+        myRect2.transition()
+        .duration(2000)
         .attr("height", 100)
         .attr("y", 10)
-        .attr("x", 90)
+        
+        myRect2.on('mouseover', function(){
+            d3.select(this)
+            .transition()
+            .duration(2000)
+            .attr("fill","blue")
+            .attr("stroke", "green")
+        })
+        
+        myRect2.on('mouseout', function(){
+            d3.select(this)
+            .transition()
+            .duration(2000)
+            .attr("fill","orange")
+            .attr("stroke", "orange")
+        })
         </script>
     
     </body>
