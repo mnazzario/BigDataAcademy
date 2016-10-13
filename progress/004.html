@@ -1,0 +1,32 @@
+<html>
+
+    <head>
+        <script type="application/javascript" src="lib/d3.v3.min.js"></script>
+    </head>
+
+    <body>
+    
+    <script>
+        d3.select("body")
+        .append("svg")
+        .append("rect")
+        .attr("width", 40)
+        .attr("height", 80)
+        .attr("y", 30)
+        d3.select("svg")
+        .append("rect")
+        .attr("width", 40)
+        .attr("height", 50)
+        .attr("y", 60)
+        .attr("x", 45)
+        .attr("fill", "orange")
+        d3.select("svg")
+        .append("rect")
+        .attr("width", 40)
+        .attr("height", 100)
+        .attr("y", 10)
+        .attr("x", 90)
+        </script>
+    
+    </body>
+</html>
