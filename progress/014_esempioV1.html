@@ -35,15 +35,49 @@
           
             console.log(newData)
             
+             var min = d3.min(newData, function(d,i){
+                            return d.values.length  //min da il numero di ateti minimo che hanno una certa età
+                            
+                        })
+                        
+             var max = d3.max(newData, function(d,i){
+                            return d.values.length //max da il numero di ateti minimo che hanno una certa età
+                        })
+                        
+            var myScale = d3.scale.linear()
+                                        .domain([min,max])
+                                        .range([0,150])
             
             currentGroup =d3.select('svg')
+            .attr('width', 10000)
             .selectAll('g')
             .data(newData)
             .enter()
             .append('g')
             .attr('transform', function(d,i){
-            return 'translate(' + i*21 + ',0)'
+            return 'translate(' + i*10 + ',0)'
             })
+            
+            currentGroup.append('rect')
+            .attr('width',4)
+            .attr('height', function(d,i){
+                return d.values.female
+            })
+            .attr('fill', 'pink')
+            .attr('x',4)
+            .attr('y', function(d,i){ 
+                return 150 - d.values.female                                    
+                                    })
+            
+            currentGroup.append('rect')
+            .attr('width',4)
+            .attr('height', function(d,i){
+                return d.values.male
+            })
+            .attr('fill', 'blue')
+            .attr('y', function(d,i){ 
+                return 150 - d.values.male                                    
+                                    })
             
           
       })
