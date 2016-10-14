@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg></svg>
+      
+      <script>
+      
+      var dataset = [3,63,6,8,23,56,8,23,5]
+      
+      currentGroup =d3.select('svg')
+        .selectAll('g')
+        .data(dataset)
+        .enter()
+        .append('g')
+        .attr('transform', function(d,i){
+          return 'translate(' + i*21 + ',0)'
+          })
+      
+       currentGroup.append('rect')
+         .attr('width',20)
+         .attr('height', function(d,i){          
+     return d          
+     })
+        //.attr('y',20)
+       .attr('y',function(d,i){
+           return 100 -d
+           
+       })
+       
+       
+//        .attr('height', function(d,i){
+//          
+//        return d  
+//          
+//      })
+//          .attr('x', function(d,i){
+//          return i*26
+//      })
+//        .attr('y',function(d,i){
+//          
+//          return 100-d
+//      })
+        currentGroup.append('text')
+        .text(function(d,i){
+           return d
+       })
+        .attr('x',10)
+        .attr('y',15)
+      
+        
+      </script>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<html>
+
+    <head>
+        <script type="application/javascript" src="lib/d3.v3.min.js"></script>
+    </head>
+
+    <body>
+        <svg></svg>
+        <script>
+        
+        d3.csv('athletes_sochi.csv', function(data){
+        console.log(data)
+        
+        var byCountry = d3.nest() //dalla lista degli atleti voglio arrivare ad avere una lista di paesi con gli atleti
+                        .key(function(d,i){ //quale è la chiave che voglio usare nel data set originale
+                            return d.country
+                        }) 
+                        .entries(data) //aggrega per country
+                        console.log(byCountry)
+                        byCountry.sort(function(a,b){
+                            return d3.descending(a.values.length, b.values.length)
+                        })
+                        
+                        /*var myScale = d3.scale.linear()  //serve per scalare l'oggetto per farlo stare nell'svg --> questo commentato è la parte più semplice di seguito si riporta il modo di gestire min e max
+                            .domain([0,500])
+                            .range([0,150])*/
+                        
+                        var min = d3.min(byCountry, function(d,i){
+                            return d.values.length
+                        })
+                        
+                        var max = d3.max(byCountry, function(d,i){
+                            return d.values.length
+                        })
+                        
+                        var myScale = d3.scale.linear()
+                                        .domain([min,max])
+                                        .range([0,150])
+                        var max 
+                        d3.select('svg')
+                        .selectAll('rect')
+                        .data(byCountry)
+                        .enter()
+                        .append('rect')
+                        .attr('width', 10)
+                        .attr('height', function(d,i){
+                            return myScale(d.values.length)    // qui scalo                         
+                        })
+                        .attr('x', function(d,i){
+                            return i*11
+                        })
+        })
+        </script>
+    </body>
+</html>

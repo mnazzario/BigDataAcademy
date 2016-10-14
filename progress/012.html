@@ -1,0 +1,38 @@
+<html>
+
+    <head>
+        <script type="application/javascript" src="lib/d3.v3.min.js"></script>
+    </head>
+
+    <body>
+        <svg></svg>
+        <script>
+        
+        d3.csv('athletes_sochi.csv', function(data){
+        console.log(data)
+        
+        var byCountry = d3.nest() //dalla lista degli atleti voglio arrivare ad avere una lista di paesi con gli atleti
+                        .key(function(d,i){ //quale è la chiave che voglio usare nel data set originale
+                            return d.country
+                        }) 
+                        .entries(data) //aggrega per country
+                        console.log(byCountry)
+                        byCountry.sort(function(a,b){
+                            return d3.descending(a.values.length, b.values.length)
+                        })
+                        d3.select('svg')
+                        .selectAll('rect')
+                        .data(byCountry)
+                        .enter()
+                        .append('rect')
+                        .attr('width', 10)
+                        .attr('height', function(d,i){
+                            return d.values.length                            
+                        })
+                        .attr('x', function(d,i){
+                            return i*11
+                        })
+        })
+        </script>
+    </body>
+</html>

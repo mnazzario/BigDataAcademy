@@ -39,12 +39,14 @@
                       })
              
              Rects.on('click', function(d,i){
-            //alert("hey")
+             alert("hey")
                 if(d.clicked)
                     {
-                         d3.select(this)
-                        .attr("fill", "black")
-                        d.clicked=false
+                        alert("hey clicked")
+             
+                     d3.select(this)
+                     .attr("fill", "black")
+                     d.clicked=false
                     }
                  else{
                       d3.select(this)

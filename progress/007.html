@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg></svg>
+      
+      <script>
+      
+      var dataset = [3,63,6,8,23,56,8,23,5]
+      
+      d3.select('svg')
+        .selectAll('rect')
+        .data(dataset)
+        .enter()
+        .append('rect')
+        .attr('width', 25)
+        .attr('height', function(d,i){
+          
+        return d  
+          
+      })
+        .attr('x', function(d,i){
+          return i*26
+      })
+        .attr('y',function(d,i){
+          
+          return 100-d
+      })
+      //  .transition()
+      //.duration(1500)
+      /* d3.select('svg')
+        .selectAll('text')
+        .data(dataset)
+        .enter()
+        .append('text')
+        .text(function(d,i){
+           return d
+       })
+           .attr('height', function(d,i){
+          
+        return d  
+          
+      })
+        */
+      
+      
+        
+      </script>
+    </body>
+</html>

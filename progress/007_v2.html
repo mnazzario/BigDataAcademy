@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg></svg>
+      
+      <script>
+      
+      var dataset = [3,63,6,8,23,56,8,23,5]
+      
+      currentGroup =d3.select('svg')
+        .attr('width', 10000)
+        .selectAll('g')
+        .data(dataset)
+        .enter()
+        .append('g')
+        .attr('transform', function(d,i){
+          return 'translate(' + ((i*70)+40) + ',' + (110-(d+20)) + ')'
+          })
+      
+       currentCircle = currentGroup.append('circle')
+         .attr('r',10)
+        .attr('opacity',0)
+         //.attr('cx', 0)
+         //.attr('cy',20)
+        
+       
+        currentCircle.transition()
+              .duration(5000)
+              .delay(function (d,i){
+                  return 100*i                  
+              })
+              .attr('opacity',1)
+         .attr('r',20)
+        .attr('fill', function(d,i){
+          if (d>50) return "red"
+          else return ''
+        })
+        
+              
+       
+       currentText= currentGroup.append('text')
+        .text(function(d,i){
+           return d
+       })
+        .attr('text-anchor','middle')
+        .attr('y',40)
+      
+        currentText.transition()
+            .duration(5000)
+            .delay(function(d,i){
+                return 100*1
+        })
+            .attr('fill', 'grey')
+        
+          currentCircle.on('click', function(d,i){
+                      d3.select(this)
+                      .attr("fill", "green")
+                      d.clicked=true
+              })
+          
+         currentGroup.on('mouseover', function(){
+             console.log(this)
+             d3.select(this)
+             .select('circle')
+             .attr('fill', 'blue')     
+         })
+         
+      </script>
+    </body>
+</html>

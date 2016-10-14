@@ -1,0 +1,48 @@
+<html>
+
+    <head>
+        <script type="application/javascript" src="lib/d3.v3.min.js"></script>
+    </head>
+
+    <body>
+       <svg></svg>
+        <script>
+        
+            var dataset =  d3.csv('athletes_sochi.csv', function(data){
+              console.log(data) 
+
+            //il sort modifica il dataset
+            data.sort(function(a,b){
+                         return d3.descending(a.age,b.age)
+                         })
+            //il filter crea un nuovo data set
+            newDataset = data.filter(function(d){
+                return d.age < 18          
+            })
+            d3.select('svg')
+                .attr('width', 100000)
+                .selectAll('rect')
+                .data(newDataset)
+                .enter()
+                .append('rect')
+                .attr('width', 5)
+                .attr('height', function(d,i){
+                return d.age;
+            })
+                .attr('x',function(d,i){
+                return i*6
+            })
+                .attr('y', function(d,i){
+                return 100-d.age
+            })
+                .attr('fill', function(d,i){
+                age = parseInt(d.age)
+                if (age < 18) {return 'green'}
+                if(age=>18 & age<40) {return 'blue'}
+                if(age>41 & age<50) {return 'red'}
+                else alert(age)
+            })
+        })
+        </script>
+    </body>
+</html>
