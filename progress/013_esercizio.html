@@ -1,0 +1,62 @@
+<html>
+
+    <head>
+        <script type="application/javascript" src="lib/d3.v3.min.js"></script>
+    </head>
+
+    <body>
+        <svg></svg>
+        <script>
+        
+        d3.csv('athletes_sochi.csv', function(data){
+        console.log(data)
+        
+        var byAge = d3.nest() //dalla lista degli atleti voglio arrivare ad avere una lista di paesi con gli atleti
+                        .key(function(d,i){ //quale è la chiave che voglio usare nel data set originale
+                            return d.age
+                        }) 
+                        .entries(data) //aggrega per country
+                        console.log(byAge)
+                        byAge.sort(function(a,b){
+                          //  alert(a.key)
+                            return d3.descending(a.values.length,b.values.length) //ordino per il numero di atleti che hanno l'eta key
+                        })
+                        
+                        var min = d3.min(byAge, function(d,i){
+                            return d.values.length  //min da il numero di ateti minimo che hanno una certa età
+                            
+                        })
+                        
+                        var max = d3.max(byAge, function(d,i){
+                            return d.values.length //max da il numero di ateti minimo che hanno una certa età
+                        })
+                        alert(min)
+                        alert(max)
+                        var myScale = d3.scale.linear()
+                                        .domain([min,max])
+                                        .range([0,150])
+                        
+                        //var dist = 100
+                        d3.select('svg')
+                        //.attr('width',100000)
+                        .selectAll('circle')
+                        .data(byAge)
+                        .enter()
+                        .append('circle')
+                        .attr('cx', function(d,i){
+                          // alert(myScale(byAge.length))
+                            return myScale(byAge.length*i)
+                        })
+                        
+                        .attr('cy', function(d,i){
+                            return 70
+                        })
+                        .attr('r', function(d,i){
+                               return myScale(d.key)
+                        })
+                        .attr('y', 100)
+                        .attr('opacity',.5)
+        })
+        </script>
+    </body>
+</html>

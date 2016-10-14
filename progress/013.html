@@ -33,6 +33,8 @@
                             return d.values.length
                         })
                         
+                        var bar_width=300/byCountry.length
+                        
                         var myScale = d3.scale.linear()
                                         .domain([min,max])
                                         .range([0,150])
@@ -42,12 +44,12 @@
                         .data(byCountry)
                         .enter()
                         .append('rect')
-                        .attr('width', 10)
+                        .attr('width', bar_width-1)
                         .attr('height', function(d,i){
                             return myScale(d.values.length)    // qui scalo                         
                         })
                         .attr('x', function(d,i){
-                            return i*11
+                            return i*bar_width
                         })
         })
         </script>

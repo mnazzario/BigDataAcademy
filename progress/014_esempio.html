@@ -1,0 +1,43 @@
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg>
+      </svg>
+      <script>
+      d3.csv('athletes_sochi.csv', function(data){
+          function maleSum(arr){
+              var somma = d3.sum(arr,function(d,i){
+                  return (d.gender=='Male') ? 1:0
+              })
+              return somma
+          }
+          
+          function femaleSum(arr){
+              var somma = d3.sum(arr,function(d,i){
+                  return (d.gender=='Female') ? 1:0
+              })
+              return somma
+          }
+          
+          var newData = d3.nest()
+                        .key(function(d){
+                            return d.country                            
+                        })
+                        .rollup(function(d){
+                            return{
+                              male:maleSum(d),
+                              female:femaleSum(d)
+                            }
+                        })
+                        .entries(data)
+          
+            console.log(newData)
+            
+          
+      })
+      
+      </script>
+    </body>
+</html>
