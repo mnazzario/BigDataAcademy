@@ -1,0 +1,88 @@
+<html>
+<head>
+    <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+</head>
+<body>
+    <svg width="10000"></svg>
+    
+    <script> 
+        d3.csv('athletes_sochi.csv', function(data){
+              var byAge = d3.nest() //dalla lista degli atleti voglio arrivare ad avere una lista di paesi con gli atleti
+                        .key(function(d,i){ //quale è la chiave che voglio usare nel data set originale
+                            return d.age
+                        }) 
+                .entries(data)
+               
+                        //Qui aggiungere la funzione che da il numero di maschi e numero di fenni
+                       
+               console.log(byAge)
+             function maleSum(arr){
+              var somma = d3.sum(arr,function(d,i){
+                  return (d.gender=='Male') ? 1:0
+              })
+              return somma
+          }
+          
+          function femaleSum(arr){
+              var somma = d3.sum(arr,function(d,i){
+                  return (d.gender=='Female') ? 1:0
+              })
+              return somma
+          }
+             function maleSum(arr){
+              var somma = d3.sum(arr,function(d,i){
+                  return (d.gender=='Male') ? 1:0
+              })
+              return somma
+          }
+          
+          function femaleSum(arr){
+              var somma = d3.sum(arr,function(d,i){
+                  return (d.gender=='Female') ? 1:0
+              })
+              return somma
+          }  
+               
+               
+             currentGroup=  d3.select('svg') //il codice seguente dice che per ogni oggetto nel file crea un rettangolo
+              .selectAll('cicle') //prepara l'oggetto di tipo rect perchè voglio unirli a questo data set
+              .data(byAge)
+              .enter() 
+               .append('g')
+              .attr('transform', function(d,i){
+             return 'translate('+(50*i)+')'   
+            })
+              currentGroup.append('circle')
+               .attr('cx',50)
+               .attr('cy',100)
+               .attr('r',function(d,i){
+                   return d.values.length/8
+               })
+              currentGroup.append('text')
+              .text(function(d,i){
+                   return d.key
+                   
+               })
+              .attr('y',50)
+              .attr('x',50)
+              currentGroup.append('text')
+              .text(function(d,i){
+                   return femaleSum(d.values)
+                   
+               })
+              .attr('y',70)
+              .attr('x',50)
+              .attr('fill', 'pink')
+              currentGroup.append('text')
+              .text(function(d,i){
+                   return maleSum(d.values)
+                   
+               })
+              .attr('y',80)
+              .attr('x',50)
+              .attr('fill', 'blue')
+              
+        })
+    </script>
+    </body>
+</html>

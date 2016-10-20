@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg></svg>
+       <script>
+        
+            svgSelected = d3.select('body')
+            .select('svg')
+            
+            rect1_group= svgSelected.append('g')
+            .attr('transform', function(d,i){
+             return 'translate(0)'   
+            })
+            rect1 =rect1_group.append('rect')
+            .attr('width',50)
+            .attr('height',0)
+            .attr("fill", "red")
+            .attr('y', 130)
+            
+            rect1.transition()
+            .duration(2500)
+            .attr('height',100)
+            .attr('y', 30)
+            
+            rect1_group.append('text')
+            .text(function(d,i){
+            return 'rect1'
+            })
+            .attr('text-anchor','middle')
+            .attr('y',45)
+            .attr('x', 27)
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "11px")
+            .attr("fill", "white");
+                      
+            rect2_group = svgSelected.append('g')
+            .attr('transform', function(d,i){
+             return 'translate(50)'   
+            })
+            .attr('text-anchor','middle')
+            
+            rect2= rect2_group.append('rect')
+            //.attr('x',50)
+            .attr('y', 130)
+            .attr('width',50)
+            .attr('height',0)
+            .attr('fill','grey')
+            
+            rect2.transition()
+            .duration(2500)
+            .attr('height',80)
+            .attr('y', 50)
+                
+            rect2_group.append('text')
+            .text(function(d,i){
+            return 'rect2'
+            })
+            .attr('y',65)
+            .attr('x', 27)
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "11px")
+            .attr("fill", "white");
+           
+            rect3_group= svgSelected.append('g')
+            .attr('transform', function(d,i){
+             return 'translate(100)'   
+            })
+            .attr('text-anchor','middle')
+            
+            
+            rect3 = rect3_group.append('rect')
+            .attr('y',130)
+            .attr('width',50)
+            .attr('height',0)
+            .attr('fill','green')
+            rect3.transition()
+            .duration(2500)
+            .attr('y',20)
+            .attr('height',110)
+             
+                        
+            rect3_group.append('text')
+            .text(function(d,i){
+            return 'rect3'
+            })
+            .attr('y',35)
+            .attr('x', 27)
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "11px")
+            .attr("fill", "white");
+             
+        </script>
+      
+      
+      
+  </body>
+</html>
