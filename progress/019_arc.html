@@ -7,8 +7,8 @@
       
       <script>
           var myArc = d3.svg.arc() //serve per generare gli archi per la pe chart
-          .innerRadius(function (d){ //raggio parte interna
-             return 120 
+          .innerRadius(function (d){ //raggio parte interna 0 è corretta
+             return 50 
           })
           .outerRadius(function (d){ //raggio parte esterna
             return 150  
@@ -20,7 +20,7 @@
           
           console.log(data)
           
-          var myPie = d3.layout.pie()
+          var myPie = d3.layout.pie() //layout sono delle funzioni che trasformano i dataset rendendoli compatibili con la rappresentazione
           .value(function(d,i){
               return d
           })
