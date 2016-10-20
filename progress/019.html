@@ -1,0 +1,29 @@
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg></svg>
+      
+      <script>
+          var myArc = d3.svg.arc() //serve per generare gli archi per la pe chart
+          .innerRadius(function (d){ //raggio parte interna
+             return 50 
+          })
+          .outerRadius(function (d){ //raggio parte esterna
+            return 150  
+            })
+          .startAngle(function (d) { //angolo di inizio
+            return 0  
+          })
+          .endAngle(function (d){    //angolo di fine
+              return Math.PI
+              })
+          
+          d3.select('svg')
+            .append('path')
+            .attr('d',myArc())
+      </script>
+    </body>
+    
+</html>

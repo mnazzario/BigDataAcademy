@@ -1,0 +1,48 @@
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg></svg>
+      
+      <script>
+          var myArc = d3.svg.arc() //serve per generare gli archi per la pe chart
+          .innerRadius(function (d){ //raggio parte interna
+             return 120 
+          })
+          .outerRadius(function (d){ //raggio parte esterna
+            return 150  
+            })
+          
+          var data = d3.range(10).map(function(){
+              return Math.random()
+          })
+          
+          console.log(data)
+          
+          var myPie = d3.layout.pie()
+          .value(function(d,i){
+              return d
+          })
+          
+          console.log(myPie(data))
+          
+          var colors =d3.scale.category20()
+          
+          d3.select('svg')
+          .append('g')
+          .attr('transform', 'translate(100,100)')
+              .selectAll('path') //ho una serie di dati ovvero i pezzi della pie char
+           .data(myPie(data))
+              .enter()
+              .append('path') 
+            .attr('d',function(d,i){
+              return myArc(d)
+          })
+          .attr('fill', function(d,i){
+              return colors(i)
+          })
+      </script>
+    </body>
+    
+</html>

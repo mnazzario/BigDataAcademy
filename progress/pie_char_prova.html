@@ -85,13 +85,13 @@ d3.csv("athletes_sochi.csv", function(error, data) {
               .selectAll('arc') //prepara l'oggetto di tipo rect perchè voglio unirli a questo data set
               .data(byAge)
               .enter() 
-             var g = svg.append('g')
+             var g = currentGroup.append('g')
                .attr("class", "arc")
                 .attr('transform', function(d,i){
              return 'translate('+(50*i)+')'   
             })   
                g.append("path")
-              .attr("d",  "M 100 100 a 50 50 0 1 0 0.1 0")
+              .attr("d",  function(d,i){  return "M 100 100 a 10 10 0 1 0 0.1 0"})
               .style("fill", function(d) { return 'blue' });
 })
 </script>
