@@ -1,6 +1,12 @@
 <html>
   <head>
       <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+      <style>
+      .axis line, .axis path{
+      fill:none;
+      stroke:red;
+      }
+          </style>
   </head>
   <body>
       <svg>
@@ -9,10 +15,19 @@
       
        //Di seguito aggiunta per posizionare l'asse vedi punto 1.1
            var axg = d3.select('svg')
+           .attr('width', 500)
+           .attr('height', 500)
             .append('g')
-            .attr('transform', 'translate(0,100)')
-            
-       function draw(data){  //creata la funzione per chiamare il trigger di aggiornamento
+           .attr('class','axis')
+            .attr('transform', 'translate(0,480)')
+            //.attr('transform', 'translate(100,0)')
+       
+           var ayg = d3.select('svg')
+            .append('g')
+            .attr('class','axis')
+            .attr('transform', 'translate(30,0)')
+           
+           function draw(data){  //creata la funzione per chiamare il trigger di aggiornamento
            console.log(data) 
            var circle = d3.select('svg')
            .selectAll('circle')
@@ -21,18 +36,29 @@
            //la seguente funzione serve per scalare 
            var mapX = d3.scale.linear()
                .domain([0,data.length])
-               .range([20,280])
+               .range([30,480])
            
-          
+           var mapY =d3.scale.linear()
+           .domain([0,data.length])
+           .range([480,10])
+           
+           
             //di seguito il codice per mettere gli assi
             var ax = d3.svg.axis()
             .orient('bottom') //Puo essere top, bottom, left e right DOVE METTE LE LABEL 
             .scale(mapX)  //e poi si setta la scala
             
+            // eserizio aggiunto y
+            var ay = d3.svg.axis()
+            .orient('left')
+            .scale(mapY)
+            
             //aggiunta asse
             axg.transition()
             .call(ax) //passa un oggetto per creare gli elementi che lo compongono
-       
+            
+            ayg.transition()
+            .call(ay)
            
            
            //enter block aggiunto per renderlo dinamico -> in pratica la prima volta disegna i cerchi, le volte successive se il data set varia ovvero aumanta di uno o più elementi allora disegna i nuovi elementi
@@ -42,7 +68,7 @@
                return mapX(i)
 
            })
-           .attr('cy', 40)
+           .attr('cy', 200)
             .attr('r',0)
            
            //exit block dalla seconda volta che aggiorno allora se il dataset si è ridotto chiama questo blocco in questo caso cancella il blocco
