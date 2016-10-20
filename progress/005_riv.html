@@ -1,0 +1,82 @@
+<html>
+<head>
+    <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+</head>
+<body>
+    <svg width="100000"></svg>
+    
+    <script>
+    
+    d3.csv('athletes_sochi.csv', function(data){
+              console.log(data)
+              
+              
+              data.sort(function(a,b){
+                     return d3.ascending(a.country,b.country)
+                     })
+              
+             CurrentGroup = d3.select('svg') //il codice seguente dice che per ogni oggetto nel file crea un rettangolo
+              .selectAll('rect') //prepara l'oggetto di tipo rect perchè voglio unirli a questo data set
+              .data(data)
+              .enter() 
+              .append('g')
+              .attr('transform', function(d,i){
+             return 'translate('+(15*i)+')'   
+            })
+              Rects = CurrentGroup.append('rect')
+              .attr('height', function(d,i){
+                  return 0                   
+              })             
+              .attr('width',15)
+              .attr('x', 10)
+               .attr('y',function(d,i){
+                  return 100                   
+              }) 
+              .attr('fill', function(d,i){
+                  if(d.gender=='Male') return 'blue'
+                  else return "pink"
+                  
+              })
+             .attr('opacity',0)
+              
+               Rects.transition()
+                .duration(1000)
+              .delay(function (d,i){
+                  return 5*i                  
+              })
+               .attr('opacity',1)
+               .attr('height', function(d,i){
+                  return d.age                   
+              })
+                .attr('y',function(d,i){
+                  return 100-d.age                   
+              })
+               
+               CurrentGroup.append('text')
+               .text(function(d,i){
+                   return d.country
+                   
+               })
+               .attr('y',20)
+               .attr('transform', function(d,i){
+                   return 'rotate(-90,30,30)'   
+               })
+               .attr("font-family", "sans-serif")
+               .attr("font-size", "11px")
+               .attr("fill", "grey");
+
+              /*.attr('height', function(d,i){
+                          return d.age                      
+                          })
+              
+              .attr('y', function(d,i){
+                      return 100-d.age                     
+                      })*/
+    })
+    
+    //continuare con il distribuire le barre affinche si vedano tutte, mettere le etichette con il nome dell'altleta
+    
+    </script>
+    
+    </body>
+</html>
