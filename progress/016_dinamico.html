@@ -1,0 +1,69 @@
+<html>
+  <head>
+      <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+  </head>
+  <body>
+      <svg>
+      </svg>
+      <script>
+      /* var data=d3.range(30).map(function(d,i){
+         return Math.random()  
+       }) *///sistema per generare numeri spostato per renderlo dinamico
+      
+       
+       
+       function draw(data){  //creata la funzione per chiamare il trigger di aggiornamento
+           console.log(data) 
+           var circle = d3.select('svg')
+           .selectAll('circle')
+           .data(data)
+           
+           //la seguente funzione serve per scalare 
+           var mapX = d3.scale.linear()
+               .domain([0,data.length])
+               .range([20,280])
+           
+           
+           //enter block aggiunto per renderlo dinamico -> in pratica la prima volta disegna i cerchi, le volte successive se il data set varia ovvero aumanta di uno o più elementi allora disegna i nuovi elementi
+           circle.enter() 
+           .append('circle')
+           .attr('cx', function(d,i){
+               return mapX(i)
+
+           })
+           .attr('cy', 40)
+            .attr('r',0)
+           
+           //exit block dalla seconda volta che aggiorno allora se il dataset si è ridotto chiama questo blocco in questo caso cancella il blocco
+           circle.exit()
+           .transition()
+           .attr('cy',0)
+           .remove()
+           
+           //update block aggiorno il grafico secondo l'aggiornamento dei valori dei dati del dataset
+            circle.transition()
+            .duration(2000)
+            .delay(function(d,i){
+                return i*100
+            })
+           .attr('r',function(d,i){
+                 return d*10
+                 })
+            .attr('cx', function(d,i){
+                   return mapX(i)
+               })
+       }
+          
+          d3.select('svg')
+          .on('click', function(d,i){
+               var l = parseInt(Math.random()*20)+3
+               var data=d3.range(l).map(function(d,i){ //spostata qui la funzione per renderla dinamica
+               return Math.random()  
+               }) 
+             draw(data) //chiama la funzione draw
+             
+          })
+      </script>
+    </body>
+</html>
+          
