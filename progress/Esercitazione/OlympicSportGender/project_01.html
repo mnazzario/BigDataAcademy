@@ -1,0 +1,73 @@
+<html>
+<head>
+    <script src="lib/d3.v3.min.js"></script>
+</head>
+<body>
+    <svg 'width'=1500></svg>
+    
+    <script>
+    d3.csv('athletes_sochi.csv', function(data){
+        
+        function maleSum(arr){
+            var somma = d3.sum(arr,function(d,i){
+                return (d.gender == 'Male')?1:0
+            })
+            return somma
+        }
+        
+        function femaleSum(arr){
+            var somma = d3.sum(arr,function(d,i){
+                return (d.gender == 'Female')?1:0
+            })
+            return somma
+        }
+
+        var newdata = d3.nest()
+            .key (function(d){
+                return d.sport
+            })
+            .rollup(function(d){
+                return{ 
+                male: maleSum(d),
+                female: femaleSum(d),
+				totale: d.length	
+                }
+            })
+            .entries(data)
+        
+        console.log(newdata)
+        
+        
+		var myGroups = d3.select('svg')
+        	.selectAll('g')
+        	.data(newdata)
+        	.enter()
+        	.append('g')
+        	//.attr('transform',function(d,i){
+            	//alert(d.a)
+            //return 'translate(' + (i+1)*50 + ','+d.values.totale+')'
+			// })
+			.append('circle')
+                .attr('r',function(d,i){
+                    //console.log(d.values.length)
+                    return d.values.totale
+                })
+                .attr('cx',function(d,i){
+                    //return i*myScale(d.values.length)
+                     //console.log(byAge.length)
+                     return (i+1)*1000/d.values.length
+                     //return i
+                })
+                 .attr('cy', function(){
+                    return 100
+                })
+        
+        
+		
+    		})
+		
+    
+    </script>
+</body>
+    
+</html>

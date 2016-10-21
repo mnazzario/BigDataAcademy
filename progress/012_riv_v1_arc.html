@@ -1,0 +1,83 @@
+<html>
+<head>
+    <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+</head>
+<body>
+    <svg width="10000"></svg>
+    
+    <script> 
+        var myArc = d3.svg.arc()
+        d3.csv('athletes_sochi.csv', function(data){
+              var byAge = d3.nest() //dalla lista degli atleti voglio arrivare ad avere una lista di paesi con gli atleti
+                        .key(function(d,i){ //quale è la chiave che voglio usare nel data set originale
+                            return d.age
+                        }) 
+                .entries(data)
+               
+                        //Qui aggiungere la funzione che da il numero di maschi e numero di fenni
+                       
+               console.log(byAge)
+          function maleSum(arr){
+              var somma = d3.sum(arr,function(d,i){
+                //  return (d.gender=='Male') ? 1:0
+                  return 1 //per prova
+              })
+              return somma
+          }
+          
+          function femaleSum(arr){
+              var somma = d3.sum(arr,function(d,i){
+                  return (d.gender=='Female') ? 1:0
+              })
+              return somma
+          }
+            
+            
+          var myPie = d3.layout.pie() //layout sono delle funzioni che trasformano i dataset rendendoli compatibili con la rappresentazione
+          .value(function(d,i){
+              console.log(maleSum(d.values)+femaleSum(d.values))
+              return maleSum(d.values),femaleSum(d.values)
+          })
+             console.log(myPie(byAge))   
+               
+             currentGroup=  d3.select('svg') //il codice seguente dice che per ogni oggetto nel file crea un rettangolo
+              .selectAll('path') //prepara l'oggetto di tipo rect perchè voglio unirli a questo data set
+              .data(myPie(byAge))
+              .enter() 
+               .append('g')             
+              .attr('transform', function(d,i){
+             return 'translate('+(50*i)+')'   
+            })
+              currentGroup.append('path')
+              .attr('d',function(d,i){
+              return myArc(d)
+          })
+              
+              currentGroup.append('text')
+              .text(function(d,i){
+                   return d.key
+                   
+               })
+              .attr('y',50)
+              .attr('x',50)
+              currentGroup.append('text')
+              .text(function(d,i){
+                   return femaleSum(d.values)
+                   
+               })
+              .attr('y',70)
+              .attr('x',50)
+              .attr('fill', 'pink')
+              currentGroup.append('text')
+              .text(function(d,i){
+                   return maleSum(d.values)
+                   
+               })
+              .attr('y',80)
+              .attr('x',50)
+              .attr('fill', 'blue')
+              
+        })
+    </script>
+    </body>
+</html>
