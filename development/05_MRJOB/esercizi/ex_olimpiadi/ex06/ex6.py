@@ -9,13 +9,37 @@ from mrjob.step import MRStep
 
 class MREx_06(MRJob):
     def steps(self):
-        return []
+        return [
+            MRStep(mapper=self.lineMapper,
+                   reducer=self.ageReducer)
+            ]
 
     def lineMapper(self, _, line):
-        pass
+        age= line.split(',')[0]
+        gender = line.split(',')[2]
+        yield age, (gender, 1)
 
     def ageReducer(self, age, occurrences_list):
-        pass
+        numMale=0
+        numFemale=0
+        if age!='age':
+            for x in occurrences_list:
+                if x[0]=='Male':
+                    numMale = numMale+x[1]
+                else:
+                    numFemale = numFemale+x[1]
+            yield age, [numMale, numFemale]
 
+            
+            
 if __name__ == '__main__':
     MREx_06.run()
+
+    
+    
+
+    #def ageReducer(self, age, occurrences_list):
+            #print age
+            #for r in occurrences_list :
+            #    print r
+     #       yield age, sum(occurrences_list) 

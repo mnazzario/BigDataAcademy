@@ -9,10 +9,15 @@ from mrjob.step import MRStep
 
 class MREx_07(MRJob):
     def steps(self):
-        return []
+        return [
+            MRStep(mapper=self.lineMapper,
+                   reducer=self.ageReducer)
+        ]
 
     def lineMapper(self, _, line):
-        pass
+        country= line.split(',')[11]
+        #gender = line.split(',')[2]
+        #yield age, (gender, 1)
 
     def ageReducer(self, age, occurrences_list):
         pass
