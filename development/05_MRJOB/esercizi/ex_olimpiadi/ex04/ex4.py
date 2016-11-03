@@ -1,9 +1,7 @@
 from mrjob.job import MRJob
 from mrjob.step import MRStep
 
-import re
 
-WORD_REGEXP = re.compile(r"[\w']+")
 
 # Exercise 4
 # Utilizzando il dataset, calcolare per ogni eta il numero di atleti.
