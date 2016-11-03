@@ -1,0 +1,3 @@
+"characters"	791
+"phrases"	39
+"words"	140
